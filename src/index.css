@@ -1,0 +1,46 @@
+:root {
+  --text: #5c5666;
+  --text-h: #16131c;
+  --bg: #fbfaf7;
+  --border: #e5e4e7;
+  --accent: #5b4dff;
+  --social-bg: rgba(244, 243, 236, 0.7);
+  --sans: "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+
+  font: 18px/160% var(--sans);
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  color: var(--text-h);
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+p {
+  margin: 0;
+}
