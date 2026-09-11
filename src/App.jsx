@@ -1,82 +1,497 @@
 import './App.css'
 
-const features = [
+const reasons = [
   {
-    title: 'シンプル',
-    body: '必要な情報だけを、わかりやすく届けます。',
+    icon: 'mic',
+    title: '話すだけで記録が整う',
+    body: '音声入力するだけで、要約・タグ付け・構造化まで自動で完了。',
   },
   {
-    title: 'モダン',
-    body: 'React と Vite で、軽くて速いページを構築しています。',
+    icon: 'book',
+    title: '辞書体系で認識精度が向上',
+    body: '業界辞書・企業辞書・個人辞書を参照し、専門用語や固有名詞も正確に理解。',
   },
   {
-    title: 'これから',
-    body: 'コンテンツやデザインは、これから一緒に育てていけます。',
+    icon: 'tag',
+    title: 'タグ体系でナレッジ化',
+    body: '業務タグ・顧客タグ・行動タグ・リスクタグを自動選択。記録が「検索できるナレッジ」に変わる。',
+  },
+  {
+    icon: 'bulb',
+    title: '行動提案エンジンで次の行動が明確に',
+    body: '過去記録・顧客情報・業務ルールを参照し、「次に何をすべきか」を提示。',
+  },
+  {
+    icon: 'chart',
+    title: 'AIが人に合わせて進化する',
+    body: '訂正学習・個人辞書・組織辞書により、使えば使うほど精度が上がる。',
   },
 ]
+
+const features = [
+  {
+    icon: 'doc',
+    title: '要約',
+    en: 'Summarization',
+    body: '音声・テキストを文脈に沿って要約し、必要な情報だけを抽出。',
+  },
+  {
+    icon: 'tag',
+    title: 'タグ生成',
+    en: 'Tagging',
+    body: '分類モデルが最適なタグを自動選択。企業ごとにタグ体系を定義可能。',
+    chips: ['業務', '顧客', '行動', 'リスク'],
+  },
+  {
+    icon: 'book',
+    title: '辞書体系',
+    en: 'Dictionary System',
+    body: 'AIが自動更新し、人が訂正可能。',
+    list: ['業界辞書', '企業辞書', '個人辞書'],
+  },
+  {
+    icon: 'share',
+    title: '行動提案',
+    en: 'Action Suggestion',
+    body: '過去データ・辞書・タグ・顧客情報を統合し、次の行動と注意点を提示。',
+  },
+  {
+    icon: 'link',
+    title: 'データ連携',
+    en: 'Integration',
+    body: 'CRM / SFA / EHR / 介護記録 / 販売管理 / 各種マスタと連携。',
+    chips: ['CRM', 'SFA', 'EHR'],
+  },
+  {
+    icon: 'stack',
+    title: 'ナレッジ蓄積',
+    en: 'Knowledge Base',
+    body: '構造化された記録が蓄積され、検索・分析・改善に活用可能。',
+  },
+]
+
+const values = [
+  {
+    icon: 'people',
+    title: '行動の質が均一化する',
+    body: '個人差・スキル差・記録のばらつきを吸収し、組織全体の行動の質が揃う。',
+  },
+  {
+    icon: 'star',
+    title: '顧客対応の質が向上する',
+    body: '行動提案により、誰でも一定以上の対応ができる状態へ。',
+  },
+  {
+    icon: 'stack',
+    title: '記録がナレッジに変わる',
+    body: 'タグと辞書により、記録が「使える情報」に変わる。',
+  },
+  {
+    icon: 'cycle',
+    title: '改善が循環する組織になる',
+    body: 'ナレッジ → 行動 → 改善 → 再蓄積。この循環が自動で回り続ける。',
+  },
+]
+
+const benefits = [
+  '記録時間の大幅短縮',
+  '行動の質が均一化',
+  '記録漏れ（放棄）の解消',
+  '顧客対応の質が向上',
+  '記録がナレッジとして活用可能に',
+  '新人・外国人・ADHDなどの個人差を吸収',
+  '行動提案による業務効率化',
+  '組織全体のサービス品質が向上',
+]
+
+const faqs = [
+  {
+    q: '汎用AIと何が違いますか？',
+    a: '汎用AIとは違い、業界・企業・個人の辞書とタグ体系を持ち、AIが人に合わせて進化します。記録のばらつきや行動の抜け漏れを吸収し、次の行動まで提案します。',
+  },
+  {
+    q: '現場の記録はどのように整いますか？',
+    a: '話すだけで入力できます。要約、タグ付け、構造化まで自動で完了し、検索できるナレッジとして蓄積されます。',
+  },
+  {
+    q: '既存システムと連携できますか？',
+    a: 'CRM / SFA / EHR / 介護記録 / 販売管理 / 各種マスタと連携し、記録の精度と活用度を高めます。',
+  },
+  {
+    q: '導入するとどんな効果がありますか？',
+    a: '記録時間の短縮、記録漏れの解消、行動の質の均一化、顧客対応品質の向上など、組織全体のサービス品質改善につながります。',
+  },
+]
+
+function Icon({ name }) {
+  const common = {
+    className: 'icon',
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    'aria-hidden': true,
+  }
+
+  if (name === 'mic') {
+    return (
+      <svg {...common}>
+        <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'book') {
+    return (
+      <svg {...common}>
+        <path d="M5 5h10a3 3 0 0 1 3 3v12H8a3 3 0 0 0-3 3V5z" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M8 8h7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'tag') {
+    return (
+      <svg {...common}>
+        <path d="M4 10V5h5l9 9-5 5-9-9z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+        <circle cx="8" cy="8" r="1.2" fill="currentColor" />
+      </svg>
+    )
+  }
+  if (name === 'bulb') {
+    return (
+      <svg {...common}>
+        <path d="M9 18h6M10 21h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M8 14c-1.7-1.3-3-3.2-3-5.5A7 7 0 0 1 19 8.5c0 2.3-1.3 4.2-3 5.5l-.5 1.5h-8L8 14z" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    )
+  }
+  if (name === 'chart') {
+    return (
+      <svg {...common}>
+        <path d="M4 19h16M7 16V9M12 16V5M17 16v-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'doc') {
+    return (
+      <svg {...common}>
+        <path d="M7 3h7l5 5v13H7V3z" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M14 3v5h5M9 12h6M9 16h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'share') {
+    return (
+      <svg {...common}>
+        <circle cx="6" cy="12" r="2.2" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="17" cy="6" r="2.2" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="17" cy="18" r="2.2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M8 11.2 15 7.2M8 12.8 15 16.8" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    )
+  }
+  if (name === 'link') {
+    return (
+      <svg {...common}>
+        <path d="M10 13a4 4 0 0 0 5.7 0l2-2a4 4 0 0 0-5.7-5.7l-1.1 1.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M14 11a4 4 0 0 0-5.7 0l-2 2a4 4 0 0 0 5.7 5.7l1.1-1.1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'stack') {
+    return (
+      <svg {...common}>
+        <path d="M12 4 4 8l8 4 8-4-8-4zM4 12l8 4 8-4M4 16l8 4 8-4" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  if (name === 'people') {
+    return (
+      <svg {...common}>
+        <circle cx="9" cy="8" r="2.4" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="16" cy="9" r="2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M4.5 18c.6-2.7 2.5-4 4.5-4s3.9 1.3 4.5 4M14 14.2c1.6 0 3.2.9 3.8 3.3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  }
+  if (name === 'star') {
+    return (
+      <svg {...common}>
+        <path d="M12 4.5 13.9 9l4.8.5-3.6 3.2 1.1 4.7L12 15.4 7.8 17.4l1.1-4.7L5.3 9.5 10.1 9 12 4.5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+  return (
+    <svg {...common}>
+      <path d="M7 7h4v4H7V7zm6 6h4v4h-4v-4z" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M9 11v2a2 2 0 0 0 2 2h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function Logo() {
+  return (
+    <a className="logo" href="#top">
+      <svg className="logo-mark" viewBox="0 0 32 24" aria-hidden="true">
+        <path
+          d="M2 20 10 4h4l5 10 5-10h4L20 20h-4l-5-10-5 10H2z"
+          fill="currentColor"
+        />
+      </svg>
+      Munemo Assistant
+    </a>
+  )
+}
 
 function App() {
   return (
     <div className="page">
       <header className="nav">
-        <a className="logo" href="#top">
-          Munemo
-        </a>
+        <Logo />
         <nav>
-          <a href="#about">About</a>
-          <a href="#features">Features</a>
-          <a href="#contact">Contact</a>
+          <a href="#why">特徴</a>
+          <a href="#features">機能</a>
+          <a href="#value">価値</a>
+          <a href="#benefits">導入効果</a>
+          <a href="#faq">よくある質問</a>
         </nav>
+        <a className="button ghost" href="#contact">
+          お問い合わせ
+        </a>
       </header>
 
-      <main id="top">
-        <section className="hero">
-          <p className="eyebrow">Welcome</p>
-          <h1>Munemo へようこそ</h1>
-          <p className="lead">
-            公式ホームページです。サービスや活動の紹介を、これからここにまとめていきます。
-          </p>
-          <a className="button" href="#about">
-            詳しく見る
-          </a>
-        </section>
+      <main>
+        <section className="hero" id="top">
+          <div className="hero-copy">
+            <Logo />
+            <h1>
+              話すだけで記録を整理するAI。
+              <br />
+              行動の質を均一化する新しい業務基盤。
+            </h1>
+            <p>
+              記録のばらつき、行動の抜け漏れ、顧客対応の不均一。
+              AIが進化しても現場に残り続ける課題を、Munemo Assistant は根本から解決します。
+            </p>
+            <div className="hero-quote">
+              <p>AIが人に合わせる。</p>
+              <p>組織の行動が整う。</p>
+              <p>誰もが本来の仕事に集中できる未来へ。</p>
+            </div>
+            <a className="button" href="#contact">
+              無料で相談する
+            </a>
+          </div>
 
-        <section id="about" className="section">
-          <h2>About</h2>
-          <p>
-            Munemo は、これから公開していくコンテンツの拠点です。お知らせ、プロフィール、リンクなどをこのページから広げていけます。
-          </p>
-        </section>
-
-        <section id="features" className="section">
-          <h2>Features</h2>
-          <div className="cards">
-            {features.map((feature) => (
-              <article className="card" key={feature.title}>
-                <h3>{feature.title}</h3>
-                <p>{feature.body}</p>
-              </article>
-            ))}
+          <div className="hero-visual">
+            <img src="/images/hero.png" alt="スマートフォンで記録するビジネスパーソン" />
+            <div className="app-card" aria-hidden="true">
+              <div className="app-head">
+                <span className="logo-mark mini" />
+                Munemo Assistant
+              </div>
+              <div className="app-grid">
+                <div className="app-side">
+                  <b />
+                  <b />
+                  <b />
+                  <b />
+                </div>
+                <div className="app-main">
+                  <i />
+                  <i />
+                  <i />
+                </div>
+              </div>
+            </div>
+            <div className="sound-badge" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <ul className="float-chips">
+              <li>要約・整理</li>
+              <li>タグ付け</li>
+              <li>ナレッジ化</li>
+              <li>行動提案</li>
+            </ul>
+            <p className="script">Your voice. Our intelligence.</p>
           </div>
         </section>
 
-        <section id="contact" className="section">
-          <h2>Contact</h2>
-          <p>
-            ソースコードは GitHub で公開しています。
-          </p>
-          <a
-            className="button secondary"
-            href="https://github.com/axirria-kato/Munemo"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub を見る
-          </a>
+        <section className="band" id="about">
+          <div className="wrap about">
+            <p className="kicker">02 Munemo Assistant とは</p>
+            <div className="about-grid">
+              <article>
+                <h2>行動の質を均一化するAIです。</h2>
+                <p>
+                  現場では、記録の書き方・行動の仕方・顧客対応の質が人によって大きく異なります。その結果、組織のナレッジは活用されず、改善が進まないまま属人的な業務が続きます。
+                </p>
+              </article>
+              <article className="panel">
+                <p>
+                  Munemo Assistant は、
+                  <strong>話すだけで記録を整理し、タグ付けし、ナレッジ化し、次の行動まで提案するAI。</strong>
+                </p>
+              </article>
+              <article className="panel">
+                <p>
+                  汎用AIとは違い、
+                  <strong>AIが人に合わせて進化する構造</strong>
+                  を持ち、個人差・記録のばらつき・行動の抜け漏れを吸収します。
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section className="band alt" id="why">
+          <div className="wrap">
+            <p className="kicker">03 Munemo Assistant の特徴</p>
+            <h2>Why Munemo?</h2>
+            <div className="reason-grid">
+              {reasons.map((reason, index) => (
+                <article key={reason.title}>
+                  <div className="icon-circle">
+                    <Icon name={reason.icon} />
+                  </div>
+                  <h3>
+                    {index + 1}. {reason.title}
+                  </h3>
+                  <p>{reason.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band" id="features">
+          <div className="wrap">
+            <p className="kicker">04 Munemo Assistant の機能</p>
+            <h2>Features</h2>
+            <div className="feature-grid">
+              {features.map((feature) => (
+                <article className="feature-card" key={feature.en}>
+                  <div className="icon-circle">
+                    <Icon name={feature.icon} />
+                  </div>
+                  <h3>{feature.title}</h3>
+                  <p className="en">{feature.en}</p>
+                  {feature.list ? (
+                    <ul className="mini-list">
+                      {feature.list.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <p>{feature.body}</p>
+                  {feature.chips ? (
+                    <div className="chips">
+                      {feature.chips.map((chip) => (
+                        <span key={chip}>{chip}</span>
+                      ))}
+                    </div>
+                  ) : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band alt" id="value">
+          <div className="wrap">
+            <p className="kicker">05 Munemo Assistant の価値</p>
+            <h2>Value Proposition</h2>
+            <div className="value-grid">
+              {values.map((value) => (
+                <article key={value.title}>
+                  <div className="icon-circle">
+                    <Icon name={value.icon} />
+                  </div>
+                  <div>
+                    <h3>{value.title}</h3>
+                    <p>{value.body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band" id="benefits">
+          <div className="wrap benefits">
+            <div>
+              <p className="kicker">06 Munemo Assistant の導入効果</p>
+              <h2>Benefits</h2>
+            </div>
+            <div className="benefits-layout">
+              <div className="photo-card">
+                <img src="/images/team.png" alt="チームで業務改善に取り組む様子" />
+                <p>Better team. Better service.</p>
+              </div>
+              <ul>
+                {benefits.map((benefit) => (
+                  <li key={benefit}>{benefit}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="vision" id="vision">
+          <img src="/images/city.png" alt="" />
+          <div className="wrap vision-copy">
+            <p className="kicker light">07 Munemo Assistant のビジョン</p>
+            <h2>Vision</h2>
+            <p className="vision-lead">
+              Munemo Assistant は、AIを使いこなせる世界をつくるためのサービスです。
+            </p>
+            <p>
+              AIと人の間に正しい橋を架け、行動の質を均一化し、誰もが本来の仕事に集中できる未来を実現します。
+            </p>
+            <p className="vision-emphasis">
+              Munemo Assistant は、AIが進化するほど価値が上がるAIです。
+            </p>
+            <a className="button" href="#contact">
+              無料で相談する
+            </a>
+          </div>
+        </section>
+
+        <section className="band alt" id="faq">
+          <div className="wrap">
+            <p className="kicker">よくある質問</p>
+            <h2>FAQ</h2>
+            <div className="faq-list">
+              {faqs.map((item) => (
+                <details key={item.q}>
+                  <summary>{item.q}</summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="band" id="contact">
+          <div className="wrap contact">
+            <p className="kicker">お問い合わせ</p>
+            <h2>導入やデモのご相談は、お気軽にどうぞ。</h2>
+            <p>GitHub でもソースコードを公開しています。</p>
+            <div className="hero-actions">
+              <a className="button" href="https://github.com/axirria-kato/Munemo" target="_blank" rel="noreferrer">
+                GitHub を見る
+              </a>
+              <a className="button ghost" href="#top">
+                ページ上部へ戻る
+              </a>
+            </div>
+          </div>
         </section>
       </main>
 
       <footer className="footer">
+        <Logo />
         <p>© {new Date().getFullYear()} Munemo</p>
       </footer>
     </div>
