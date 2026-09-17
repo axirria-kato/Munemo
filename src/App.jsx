@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 
 const reasons = [
@@ -102,25 +103,6 @@ const benefits = [
   '新人・外国人・ADHDなどの個人差を吸収',
   '行動提案による業務効率化',
   '組織全体のサービス品質が向上',
-]
-
-const faqs = [
-  {
-    q: '汎用AIと何が違いますか？',
-    a: '汎用AIとは違い、業界・企業・個人の辞書とタグ体系を持ち、AIが人に合わせて進化します。記録のばらつきや行動の抜け漏れを吸収し、次の行動まで提案します。',
-  },
-  {
-    q: '現場の記録はどのように整いますか？',
-    a: '話すだけで入力できます。要約、タグ付け、構造化まで自動で完了し、検索できるナレッジとして蓄積されます。',
-  },
-  {
-    q: '既存システムと連携できますか？',
-    a: 'CRM / SFA / EHR / 介護記録 / 販売管理 / 各種マスタと連携し、記録の精度と活用度を高めます。',
-  },
-  {
-    q: '導入するとどんな効果がありますか？',
-    a: '記録時間の短縮、記録漏れの解消、行動の質の均一化、顧客対応品質の向上など、組織全体のサービス品質改善につながります。',
-  },
 ]
 
 function Icon({ name }) {
@@ -235,6 +217,126 @@ function Logo() {
   )
 }
 
+const EMAIL_PATTERN = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+
+function ContactForm() {
+  const [sent, setSent] = useState(false)
+  const [values, setValues] = useState({ name: '', email: '', message: '' })
+  const [errors, setErrors] = useState({})
+  const [showErrors, setShowErrors] = useState(false)
+
+  function validate(next = values) {
+    const nextErrors = {}
+
+    if (!next.name.trim()) {
+      nextErrors.name = '必須入力です'
+    }
+
+    if (!next.email.trim()) {
+      nextErrors.email = '必須入力です'
+    } else if (!EMAIL_PATTERN.test(next.email.trim())) {
+      nextErrors.email = '@を含む正しいメールアドレスを入力してください。'
+    }
+
+    if (!next.message.trim()) {
+      nextErrors.message = '必須入力です'
+    }
+
+    return nextErrors
+  }
+
+  function handleChange(event) {
+    const { name, value } = event.target
+    const next = { ...values, [name]: value }
+    setValues(next)
+    if (showErrors) {
+      setErrors(validate(next))
+    }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const nextErrors = validate()
+    setShowErrors(true)
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length === 0) {
+      setSent(true)
+    }
+  }
+
+  if (sent) {
+    return <p className="contact-thanks">お問い合わせを受け付けました。ありがとうございます。</p>
+  }
+
+  return (
+    <form className="contact-form" onSubmit={handleSubmit} noValidate>
+      <label>
+        お名前
+        <input
+          type="text"
+          name="name"
+          autoComplete="name"
+          value={values.name}
+          onChange={handleChange}
+          required
+          aria-required="true"
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? 'name-error' : undefined}
+          className={errors.name ? 'invalid' : undefined}
+        />
+        {errors.name ? (
+          <span className="field-error" id="name-error">
+            {errors.name}
+          </span>
+        ) : null}
+      </label>
+      <label>
+        メールアドレス
+        <input
+          type="email"
+          name="email"
+          autoComplete="email"
+          inputMode="email"
+          value={values.email}
+          onChange={handleChange}
+          required
+          aria-required="true"
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'email-error' : undefined}
+          className={errors.email ? 'invalid' : undefined}
+        />
+        {errors.email ? (
+          <span className="field-error" id="email-error">
+            {errors.email}
+          </span>
+        ) : null}
+      </label>
+      <label>
+        お問い合わせ内容
+        <textarea
+          name="message"
+          rows="6"
+          value={values.message}
+          onChange={handleChange}
+          required
+          aria-required="true"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? 'message-error' : undefined}
+          className={errors.message ? 'invalid' : undefined}
+        />
+        {errors.message ? (
+          <span className="field-error" id="message-error">
+            {errors.message}
+          </span>
+        ) : null}
+      </label>
+      <button className="button" type="submit">
+        送信
+      </button>
+    </form>
+  )
+}
+
 function App() {
   return (
     <div className="page">
@@ -245,7 +347,6 @@ function App() {
           <a href="#features">機能</a>
           <a href="#value">価値</a>
           <a href="#benefits">導入効果</a>
-          <a href="#faq">よくある質問</a>
         </nav>
       </header>
 
@@ -411,40 +512,15 @@ function App() {
           </div>
         </section>
 
-        <section className="band alt" id="faq">
-          <div className="wrap">
-            <p className="kicker">よくある質問</p>
-            <h2>FAQ</h2>
-            <div className="faq-list">
-              {faqs.map((item) => (
-                <details key={item.q}>
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="band" id="contact">
+        <section className="band alt" id="contact">
           <div className="wrap contact">
-            <p className="kicker">お問い合わせ</p>
-            <h2>導入やデモのご相談は、お気軽にどうぞ。</h2>
-            <p>GitHub でもソースコードを公開しています。</p>
-            <div className="hero-actions">
-              <a className="button" href="https://github.com/axirria-kato/Munemo" target="_blank" rel="noreferrer">
-                GitHub を見る
-              </a>
-              <a className="button ghost" href="#top">
-                ページ上部へ戻る
-              </a>
-            </div>
+            <h2 className="kicker">お問い合わせ</h2>
+            <ContactForm />
           </div>
         </section>
       </main>
 
       <footer className="footer">
-        <Logo />
         <p>© {new Date().getFullYear()} Munemo</p>
       </footer>
     </div>
