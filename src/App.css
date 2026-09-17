@@ -428,35 +428,90 @@ p {
   line-height: 1.7;
 }
 
-.vision .button,
-.contact .button {
+.vision .button {
   margin-top: 24px;
-}
-
-.faq-list {
-  display: grid;
-  gap: 12px;
-  margin-top: 24px;
-}
-
-.faq-list details {
-  padding: 16px 18px;
-  border-radius: 16px;
-  background: #fff;
-}
-
-.faq-list summary {
-  cursor: pointer;
-  color: var(--text-h);
-  font-weight: 700;
-}
-
-.faq-list p {
-  margin-top: 8px;
 }
 
 .contact {
   text-align: center;
+}
+
+.contact-form {
+  display: grid;
+  gap: 16px;
+  width: min(560px, 100%);
+  margin: 28px auto 0;
+  padding: 32px;
+  text-align: left;
+  border: 1px solid rgba(183, 208, 236, 0.7);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow:
+    0 2px 4px rgba(22, 58, 95, 0.08),
+    0 12px 28px rgba(47, 125, 225, 0.16),
+    0 32px 64px rgba(22, 58, 95, 0.14);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text-h);
+  font: inherit;
+}
+
+.contact-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid rgba(47, 125, 225, 0.28);
+  border-color: var(--accent);
+}
+
+.contact-form input.invalid,
+.contact-form textarea.invalid {
+  border-color: #d64545;
+}
+
+.contact-form input.invalid:focus,
+.contact-form textarea.invalid:focus {
+  outline-color: rgba(214, 69, 69, 0.28);
+}
+
+.field-error {
+  color: #d64545;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.contact-form .button {
+  width: auto;
+  min-width: 140px;
+  justify-self: center;
+  margin-top: 8px;
+  padding: 10px 36px;
+  cursor: pointer;
+}
+
+.contact-thanks {
+  margin-top: 28px;
+  color: var(--text-h);
+  font-weight: 700;
 }
 
 .hero-actions {
@@ -469,7 +524,7 @@ p {
 .footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 28px 0 40px;
 }
 
