@@ -230,12 +230,6 @@ function Icon({ name }) {
 function Logo() {
   return (
     <a className="logo" href="#top">
-      <svg className="logo-mark" viewBox="0 0 32 24" aria-hidden="true">
-        <path
-          d="M2 20 10 4h4l5 10 5-10h4L20 20h-4l-5-10-5 10H2z"
-          fill="currentColor"
-        />
-      </svg>
       Munemo Assistant
     </a>
   )
@@ -253,68 +247,30 @@ function App() {
           <a href="#benefits">導入効果</a>
           <a href="#faq">よくある質問</a>
         </nav>
-        <a className="button ghost" href="#contact">
-          お問い合わせ
-        </a>
       </header>
 
       <main>
         <section className="hero" id="top">
           <div className="hero-copy">
-            <Logo />
             <h1>
-              話すだけで記録を整理するAI。
+              話すだけで記録を整理するAI
               <br />
-              行動の質を均一化する新しい業務基盤。
+              <span className="hero-title-line">行動の質を均一化する新しい業務基盤</span>
             </h1>
-            <p>
+            <p className="hero-lead">
               記録のばらつき、行動の抜け漏れ、顧客対応の不均一。
-              AIが進化しても現場に残り続ける課題を、Munemo Assistant は根本から解決します。
+              <br />
+              AIが進化しても現場に残り続ける課題をMunemo Assistant は根本から解決します。
             </p>
             <div className="hero-quote">
               <p>AIが人に合わせる。</p>
               <p>組織の行動が整う。</p>
               <p>誰もが本来の仕事に集中できる未来へ。</p>
             </div>
-            <a className="button" href="#contact">
-              無料で相談する
-            </a>
           </div>
 
           <div className="hero-visual">
-            <img src="/images/hero.png" alt="スマートフォンで記録するビジネスパーソン" />
-            <div className="app-card" aria-hidden="true">
-              <div className="app-head">
-                <span className="logo-mark mini" />
-                Munemo Assistant
-              </div>
-              <div className="app-grid">
-                <div className="app-side">
-                  <b />
-                  <b />
-                  <b />
-                  <b />
-                </div>
-                <div className="app-main">
-                  <i />
-                  <i />
-                  <i />
-                </div>
-              </div>
-            </div>
-            <div className="sound-badge" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            <ul className="float-chips">
-              <li>要約・整理</li>
-              <li>タグ付け</li>
-              <li>ナレッジ化</li>
-              <li>行動提案</li>
-            </ul>
-            <p className="script">Your voice. Our intelligence.</p>
+            <img src="/images/hero.png" alt="" />
           </div>
         </section>
 
@@ -452,9 +408,6 @@ function App() {
             <p className="vision-emphasis">
               Munemo Assistant は、AIが進化するほど価値が上がるAIです。
             </p>
-            <a className="button" href="#contact">
-              無料で相談する
-            </a>
           </div>
         </section>
 
