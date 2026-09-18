@@ -3,29 +3,37 @@ import './App.css'
 
 const reasons = [
   {
-    icon: 'mic',
+    art: '/images/flow-speak.png',
+    step: '話す',
     title: '話すだけで記録が整う',
-    body: '音声入力するだけで、要約・タグ付け・構造化まで自動で完了。',
+    body: '音声入力するだけで、要約・タグ付け・構造化まで自動で完了します。',
   },
   {
-    icon: 'book',
-    title: '辞書体系で認識精度が向上',
-    body: '業界辞書・企業辞書・個人辞書を参照し、専門用語や固有名詞も正確に理解。',
+    art: '/images/flow-understand.png?v=2',
+    step: '理解する',
+    title: '辞書学習で高精度に理解',
+    body: '業界辞書・企業辞書・個人辞書を参照し、専門用語や固有名詞も正確に認識します。',
+    labels: ['専門用語', '企業名', '人物'],
   },
   {
-    icon: 'tag',
-    title: 'タグ体系でナレッジ化',
-    body: '業務タグ・顧客タグ・行動タグ・リスクタグを自動選択。記録が「検索できるナレッジ」に変わる。',
+    art: '/images/flow-store.png?v=3',
+    step: '蓄積する',
+    title: 'タグでナレッジ化',
+    body: '業務タグ・顧客タグ・行動タグ・リスクタグを自動分類し、検索できるナレッジに変換します。',
+    labels: ['顧客', '業務', '行動', 'リスク'],
+    labelStyle: 'hash',
   },
   {
-    icon: 'bulb',
-    title: '行動提案エンジンで次の行動が明確に',
-    body: '過去記録・顧客情報・業務ルールを参照し、「次に何をすべきか」を提示。',
+    art: '/images/flow-act.png',
+    step: '行動する',
+    title: '次の行動を提案',
+    body: '過去の記録や顧客情報、業務ルールを参照し、「次に何をすべきか」を提示します。',
   },
   {
-    icon: 'chart',
+    art: '/images/flow-evolve.png',
+    step: '進化する',
     title: 'AIが人に合わせて進化する',
-    body: '訂正学習・個人辞書・組織辞書により、使えば使うほど精度が上がる。',
+    body: '訂正学習・個人辞書・組織辞書により、使うほどに精度が向上し、自分の業務スタイルに最適化します。',
   },
 ]
 
@@ -377,44 +385,49 @@ function App() {
 
         <section className="band" id="about">
           <div className="wrap about">
-            <p className="kicker">02 Munemo Assistant とは</p>
-            <div className="about-grid">
-              <article>
-                <h2>行動の質を均一化するAIです。</h2>
-                <p>
-                  現場では、記録の書き方・行動の仕方・顧客対応の質が人によって大きく異なります。その結果、組織のナレッジは活用されず、改善が進まないまま属人的な業務が続きます。
-                </p>
-              </article>
-              <article className="panel">
-                <p>
-                  Munemo Assistant は、
-                  <strong>話すだけで記録を整理し、タグ付けし、ナレッジ化し、次の行動まで提案するAI。</strong>
-                </p>
-              </article>
-              <article className="panel">
-                <p>
-                  汎用AIとは違い、
-                  <strong>AIが人に合わせて進化する構造</strong>
-                  を持ち、個人差・記録のばらつき・行動の抜け漏れを吸収します。
-                </p>
-              </article>
+            <p className="kicker">Munemoとは？</p>
+            <h2>Munemo Assistant は「行動の質を均一化するAI」です。</h2>
+            <div className="about-copy">
+              <p>
+                現場では、記録の書き方・行動の仕方・顧客対応の質が人によって大きく異なります。
+                <br />
+                その結果、組織のナレッジは活用されず、改善が進まないまま属人的な業務が続きます。
+              </p>
+              <p>話すだけで記録を整理し、タグ付けし、ナレッジ化し、次の行動まで提案するAI。</p>
+              <p>
+                汎用AIとは違い、AIが人に合わせて進化する構造を持ち、個人差・記録のばらつき・行動の抜け漏れを吸収します。
+              </p>
             </div>
           </div>
         </section>
 
-        <section className="band alt" id="why">
+        <section className="features-showcase" id="why">
           <div className="wrap">
-            <p className="kicker">03 Munemo Assistant の特徴</p>
-            <h2>Why Munemo?</h2>
-            <div className="reason-grid">
+            <p className="kicker">FEATURES</p>
+            <h2>Munemo の特徴</h2>
+            <p className="features-lead">話すだけで、記録・整理・提案・進化まで。現場の行動を支える5つの力。</p>
+            <ol className="flow-steps">
               {reasons.map((reason, index) => (
-                <article key={reason.title}>
-                  <div className="icon-circle">
-                    <Icon name={reason.icon} />
+                <li key={reason.step}>
+                  <span>{index + 1}</span>
+                  {reason.step}
+                </li>
+              ))}
+            </ol>
+            <div className="flow-cards">
+              {reasons.map((reason) => (
+                <article key={reason.step}>
+                  <div className={reason.labels ? 'flow-art has-labels' : 'flow-art'}>
+                    <img src={reason.art} alt="" />
+                    {reason.labels ? (
+                      <ul className={reason.labelStyle === 'hash' ? 'flow-labels hash' : 'flow-labels'}>
+                        {reason.labels.map((label) => (
+                          <li key={label}>{label}</li>
+                        ))}
+                      </ul>
+                    ) : null}
                   </div>
-                  <h3>
-                    {index + 1}. {reason.title}
-                  </h3>
+                  <h3>{reason.title}</h3>
                   <p>{reason.body}</p>
                 </article>
               ))}
